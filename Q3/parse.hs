@@ -1,3 +1,4 @@
+import System.Process
 import System.Environment
 import System.IO (stdout,stderr,hPutStr,hPutStrLn)
 import Data.List
@@ -118,7 +119,7 @@ makeGroup me = Group me
 
 -- Addition
 makeAdd me1 (Num 0) = me1
-makeAdd (Num m) (Num n) = makeNum (m+n)
+makeAdd (Num m) (Num n) = makeNum (m*n)
 makeAdd me1 (Add (Num m) (Num n)) = makeAdd me1 (makeNum (m+n))
 makeAdd (Mul (Num m) me1) (Mul (Num n) me2)
   | me1 == me2 = makeMul (makeNum (m+n)) me1
@@ -170,6 +171,14 @@ unparseME (Add a b) = (unparseME a) ++ "+" ++ (unparseME b)
 unparseME (Sub a b) = (unparseME a) ++ "-" ++ (unparseME b)
 unparseME (Mul a b) = (unparseME a) ++ "*" ++ (unparseME b)
 unparseME (Neg a) = "-" ++ (unparseME a)
+
+stringify :: ME -> [Char]
+stringify (Num i) = show i
+stringify (Group a) = " Group " ++ (stringify a)
+stringify (Add a b) = " Add " ++ (stringify a) ++ " " ++ (stringify b)
+stringify (Sub a b) = " Sub " ++ (stringify a) ++ " " ++ (stringify b)
+stringify (Mul a b) = " Mul " ++ (stringify a) ++ " " ++ (stringify b)
+stringify (Neg a) = "-" ++ (stringify a)
 
 
 -- Command line interface

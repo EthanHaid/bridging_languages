@@ -5,13 +5,12 @@ import string
 if __name__ == '__main__':
    
    # args check
-   if (len(sys.argv) < 2):
+   if (len(sys.argv) < 3):
       print("missing input file name")
       sys.exit()
 
    # parse file
-   f = open(sys.argv[1], "r")
-   exp = string.strip(f.readline())
+   print(float(sys.argv[1]) + float(sys.argv[2]))
    
    
 

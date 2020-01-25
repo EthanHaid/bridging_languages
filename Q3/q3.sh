@@ -17,9 +17,12 @@ exp=`cat $1`
 # setup dependancies
 ghc parse.hs > /dev/null 2>&1
 
-echo "$exp = "
+parsed=`./parse $exp`
 
-./parse $exp 
+for item in $parsed; do
+   echo $item
+done
+
 
 
 
